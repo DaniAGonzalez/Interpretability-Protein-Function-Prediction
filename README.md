@@ -33,68 +33,66 @@ Protein kinases: PR-AUC 0.892
 
 ### Function-specific embedding dimensions emerge without explicit supervision:
 
-Kinases rely on dimension 493
+- Kinases rely on dimension 493
 
-Receptors rely on dimensions 532 and 565
+- Receptors rely on dimensions 532 and 565
 
-Transcription factors rely on dimensions 350 and 385
+- Transcription factors rely on dimensions 350 and 385
 
-Dimension 553 acts as a universal “functional protein” signal across all protein families
+- Dimension 553 acts as a universal “functional protein” signal across all protein families
 
-Single and combinatorial mutations cause minimal prediction changes (<5%)
+- Single and combinatorial mutations cause minimal prediction changes (<5%)
 
-Deletion scanning reveals truly critical regions:
+- Deletion scanning reveals truly critical regions:
 
-Deletion of the kinase activation loop causes a −10.7% prediction drop
+-- Deletion of the kinase activation loop causes a −10.7% prediction drop
 
 ## Biological Validation
 
-Catalytic proteins (e.g. kinases) exhibit localized functional fragility
+- Catalytic proteins (e.g. kinases) exhibit localized functional fragility
 
-Binding proteins (e.g. receptors) are globally robust due to architectural redundancy
+- Binding proteins (e.g. receptors) are globally robust due to architectural redundancy
 
-Observed robustness is consistent with evolutionary principles of mutational buffering
+- Observed robustness is consistent with evolutionary principles of mutational buffering
 
-Attention highlights structural landmarks, while integrated gradients identify predictive features
+- Attention highlights structural landmarks, while integrated gradients identify predictive features
 
 ## Dataset and Availability
 ### Data Sources
 
-Gene Ontology Consortium (human annotations)
+- Gene Ontology Consortium (human annotations)
 
-UniProt human proteome
+- UniProt human proteome
 
 ### Dataset Characteristics
 
-8,704 proteins × 202 GO molecular function terms
+- 8,704 proteins × 202 GO molecular function terms
 
-Multi-label setting (3–6 functions per protein on average)
+- Multi-label setting (3–6 functions per protein on average)
 
-Proteins longer than 500 amino acids excluded for computational reasons
+- Proteins longer than 500 amino acids excluded for computational reasons
 
 ### Important Note on Data Access
 
 To comply with data usage policies and keep the repository lightweight:
 
-The dataset is not distributed in this repository
+- The dataset is not distributed in this repository
 
-Pre-computed embeddings are not shared
+- Pre-computed embeddings are not shared
 
-All data loading, preprocessing, and embedding generation steps are fully implemented in code
-
-Public data are downloaded directly from the Gene Ontology Consortium and UniProt within the notebook
+- All data loading, preprocessing, and embedding generation steps are fully implemented in code. Public data are downloaded directly from the Gene Ontology Consortium and UniProt within the notebook
 
 ### Methods Summary
 #### Modeling Pipeline
 
-Feature extraction using ESM-2 (facebook/esm2_t30_150M_UR50D)
-Mean pooling yields 640-dimensional protein embeddings
+- Feature extraction using ESM-2 (facebook/esm2_t30_150M_UR50D)
+- Mean pooling yields 640-dimensional protein embeddings
 
-Multi-label classifier architecture: 640 → 512 → 256 → 202
+- Multi-label classifier architecture: 640 → 512 → 256 → 202
 
-Batch normalization, ReLU activations, dropout (0.3), sigmoid outputs
+- Batch normalization, ReLU activations, dropout (0.3), sigmoid outputs
 
-Training with binary cross-entropy loss and early stopping
+- Training with binary cross-entropy loss and early stopping
 
 #### Explainability Techniques
 
@@ -124,10 +122,10 @@ All analyses are implemented in a single Jupyter notebook that contains the comp
 
 - Figures and Visualizations: All figures shown in the technical report—including attention profiles, integrated gradients analyses, and deletion scanning heatmaps—are generated programmatically within the notebook. No pre-rendered images are stored separately; running the notebook reproduces all figures and results.
 
-#### Installation
+## Installation
 pip install torch transformers captum scikit-learn pandas numpy matplotlib seaborn biopython obonet
 
-#### Tested On
+## Tested On
 
 Python 3.11
 
@@ -137,7 +135,7 @@ transformers 4.35+
 
 macOS (Apple Silicon, MPS) and Linux (CUDA)
 
-### Limitations
+## Limitations
 
 Single organism analysis (human proteome only)
 
@@ -149,7 +147,7 @@ Single train/validation/test split
 
 No explicit structural information (e.g. AlphaFold) incorporated
 
-### Future Work
+## Future Work
 
 Hierarchical GO-aware loss functions
 
