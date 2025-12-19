@@ -102,29 +102,27 @@ Attention visualization using ESM-2 attention weights averaged across layers and
 
 Integrated gradients for attribution of predictions to embedding dimensions (Captum)
 
-In silico mutagenesis:
+##### In silico mutagenesis:
 
-Alanine scanning
+- Alanine scanning
 
-Combinatorial mutations
+- Combinatorial mutations
 
-Deletion scanning
+- Deletion scanning
 
-Reproducibility and Notebooks
+### Reproducibility and Notebooks
 
 All analyses are implemented in a single Jupyter notebook that contains the complete pipeline:
 
-Data loading and preprocessing
+- Data loading and preprocessing
 
-ESM-2 embedding extraction
+- ESM-2 embedding extraction
 
-Classifier training and evaluation
+- Classifier training and evaluation
 
-Explainability analyses (attention, integrated gradients, mutagenesis)
+- Explainability analyses (attention, integrated gradients, mutagenesis)
 
-#### Figures and Visualizations
-
-All figures shown in the technical report—including attention profiles, integrated gradients analyses, and deletion scanning heatmaps—are generated programmatically within the notebook. No pre-rendered images are stored separately; running the notebook reproduces all figures and results.
+- Figures and Visualizations: All figures shown in the technical report—including attention profiles, integrated gradients analyses, and deletion scanning heatmaps—are generated programmatically within the notebook. No pre-rendered images are stored separately; running the notebook reproduces all figures and results.
 
 #### Installation
 pip install torch transformers captum scikit-learn pandas numpy matplotlib seaborn biopython obonet
