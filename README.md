@@ -80,8 +80,8 @@ To comply with data usage policies and keep the repository lightweight:
 
 - All data loading, preprocessing, and embedding generation steps are fully implemented in code. Public data are downloaded directly from the Gene Ontology Consortium and UniProt within the notebook
 
-### Methods Summary
-#### Modeling Pipeline
+## Methods Summary
+### Modeling Pipeline
 
 - Feature extraction using ESM-2 (facebook/esm2_t30_150M_UR50D)
 - Mean pooling yields 640-dimensional protein embeddings
@@ -92,7 +92,7 @@ To comply with data usage policies and keep the repository lightweight:
 
 - Training with binary cross-entropy loss and early stopping
 
-#### Explainability Techniques
+### Explainability Techniques
 
 Attention visualization using ESM-2 attention weights averaged across layers and heads
 
