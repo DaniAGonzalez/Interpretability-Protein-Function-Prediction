@@ -15,19 +15,19 @@ Test accuracy: 98.58% (inflated due to class imbalance)
 
 Mean PR-AUC:
 
-0.131 (column-wise, function-level)
+- 0.131 (column-wise, function-level)
 
-0.349 (row-wise, protein-level)
+- 0.349 (row-wise, protein-level)
 
-8.4× improvement over random baselines at the function level
+- 8.4× improvement over random baselines at the function level
 
-23.0× improvement over random baselines at the protein level
+- 23.0× improvement over random baselines at the protein level
 
 ## Strong performance for conserved protein families:
 
-GPCRs: PR-AUC 0.996
+- GPCRs: PR-AUC 0.996
 
-Protein kinases: PR-AUC 0.892
+- Protein kinases: PR-AUC 0.892
 
 ## Explainability Insights
 
@@ -43,9 +43,7 @@ Protein kinases: PR-AUC 0.892
 
 - Single and combinatorial mutations cause minimal prediction changes (<5%)
 
-- Deletion scanning reveals truly critical regions:
-
--- Deletion of the kinase activation loop causes a −10.7% prediction drop
+- Deletion scanning reveals truly critical regions: Deletion of the kinase activation loop causes a −10.7% prediction drop
 
 ## Biological Validation
 
@@ -100,7 +98,7 @@ Attention visualization using ESM-2 attention weights averaged across layers and
 
 Integrated gradients for attribution of predictions to embedding dimensions (Captum)
 
-##### In silico mutagenesis:
+#### In silico mutagenesis:
 
 - Alanine scanning
 
