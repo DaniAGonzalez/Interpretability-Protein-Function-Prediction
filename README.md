@@ -1,103 +1,118 @@
-Explainable Protein Function Prediction using ESM-2 Embeddings
+# Explainable Protein Function Prediction using ESM-2 Embeddings
 
-Predicting protein molecular functions directly from amino acid sequences using transfer learning from ESM-2, with a strong focus on explainability through attention visualization, integrated gradients, and systematic in silico mutagenesis.
+Predicting protein molecular functions directly from amino acid sequences using transfer learning from ESM-2, with a strong emphasis on explainability through attention visualization, integrated gradients, and systematic in silico mutagenesis.
 
-Overview
+# Overview
 
-This project addresses the protein annotation gap: millions of sequenced proteins lack functional characterization. Traditional homology-based approaches fail for proteins without close relatives, limiting large-scale functional inference. Here, we show that ESM-2, a protein language model pre-trained on 250 million sequences, encodes rich functional information that enables accurate Gene Ontology (GO) molecular function prediction from sequence alone.
+This project addresses the protein annotation gap: millions of sequenced proteins lack functional characterization. Traditional homology-based approaches often fail for proteins without close relatives, limiting large-scale functional inference. Here, we demonstrate that ESM-2, a protein language model pre-trained on 250 million sequences, encodes rich functional information that enables accurate Gene Ontology (GO) molecular function prediction from sequence alone.
 
-Beyond predictive performance (8–23× improvement over random baselines), the main contribution of this work is interpretability. We investigate why predictions are made by analyzing which sequence regions and which embedding dimensions drive model decisions, and we validate these computational insights through targeted in silico mutagenesis experiments.
+Beyond predictive performance (8–23× improvement over random baselines), the central contribution of this work is interpretability. We investigate why predictions are made by analyzing which sequence regions and which embedding dimensions drive model decisions, and we validate these computational insights through targeted in silico mutagenesis experiments.
 
-Key Results
+# Key Results
+## Predictive Performance
 
-Predictive performance
+Test accuracy: 98.58% (inflated due to class imbalance)
 
-Test accuracy: 98.58% (inflated by class imbalance)
+Mean PR-AUC:
 
-Mean PR-AUC: 0.131 (column-wise), 0.349 (row-wise)
+0.131 (column-wise, function-level)
 
-8.4× improvement over random baselines (function-level)
+0.349 (row-wise, protein-level)
 
-23.0× improvement over random baselines (protein-level)
+8.4× improvement over random baselines at the function level
 
-Strong performance for conserved families: GPCRs (PR-AUC 0.996), kinases (0.892)
+23.0× improvement over random baselines at the protein level
 
-Explainability insights
+## Strong performance for conserved protein families:
 
-Function-specific embedding dimensions emerge without supervision
+GPCRs: PR-AUC 0.996
 
-Kinases: dimension 493
+Protein kinases: PR-AUC 0.892
 
-Receptors: dimensions 532 / 565
+## Explainability Insights
 
-Transcription factors: dimensions 350 / 385
+### Function-specific embedding dimensions emerge without explicit supervision:
 
-Dimension 553 acts as a universal “functional protein” signal across families
+Kinases rely on dimension 493
+
+Receptors rely on dimensions 532 and 565
+
+Transcription factors rely on dimensions 350 and 385
+
+Dimension 553 acts as a universal “functional protein” signal across all protein families
 
 Single and combinatorial mutations cause minimal prediction changes (<5%)
 
-Deletion scanning identifies truly critical regions (e.g., kinase activation loop: −10.7%)
+Deletion scanning reveals truly critical regions:
 
-Biological validation
+Deletion of the kinase activation loop causes a −10.7% prediction drop
 
-Catalytic proteins (kinases) exhibit localized fragility
+## Biological Validation
 
-Binding proteins (receptors) are globally robust through architectural redundancy
+Catalytic proteins (e.g. kinases) exhibit localized functional fragility
 
-Results align with evolutionary principles of mutational buffering
+Binding proteins (e.g. receptors) are globally robust due to architectural redundancy
 
-Attention highlights structural landmarks; integrated gradients identify predictive features
+Observed robustness is consistent with evolutionary principles of mutational buffering
 
-Dataset and Availability
+Attention highlights structural landmarks, while integrated gradients identify predictive features
 
-Data sources
+## Dataset and Availability
+### Data Sources
 
 Gene Ontology Consortium (human annotations)
 
 UniProt human proteome
 
-Dataset characteristics
+### Dataset Characteristics
 
 8,704 proteins × 202 GO molecular function terms
 
 Multi-label setting (3–6 functions per protein on average)
 
-Proteins >500 amino acids excluded for computational reasons
+Proteins longer than 500 amino acids excluded for computational reasons
 
-Important note on data access
+### Important Note on Data Access
 
-To comply with data usage policies and to keep the repository lightweight:
+To comply with data usage policies and keep the repository lightweight:
 
 The dataset is not distributed in this repository
 
 Pre-computed embeddings are not shared
 
-All data loading, preprocessing, and embedding generation steps are fully implemented in code and can be reproduced by downloading the original public sources directly from Gene Ontology and UniProt
+All data loading, preprocessing, and embedding generation steps are fully implemented in code
 
-Methods (Summary)
+Public data are downloaded directly from the Gene Ontology Consortium and UniProt within the notebook
 
-Pipeline
+### Methods Summary
+#### Modeling Pipeline
 
 Feature extraction using ESM-2 (facebook/esm2_t30_150M_UR50D)
-Mean pooling → 640-dimensional protein embeddings
+Mean pooling yields 640-dimensional protein embeddings
 
-Multi-label classifier (640 → 512 → 256 → 202)
+Multi-label classifier architecture: 640 → 512 → 256 → 202
 
-Batch normalization, ReLU, dropout (0.3), sigmoid outputs
+Batch normalization, ReLU activations, dropout (0.3), sigmoid outputs
 
 Training with binary cross-entropy loss and early stopping
 
-Explainability techniques
+#### Explainability Techniques
 
-Attention visualization: averaged across layers and heads of ESM-2
+Attention visualization using ESM-2 attention weights averaged across layers and heads
 
-Integrated gradients: attribution of predictions to embedding dimensions using Captum
+Integrated gradients for attribution of predictions to embedding dimensions (Captum)
 
-In silico mutagenesis: alanine scanning, combinatorial mutations, and deletion scanning
+In silico mutagenesis:
+
+Alanine scanning
+
+Combinatorial mutations
+
+Deletion scanning
 
 Reproducibility and Notebooks
 
-All analyses are implemented in a Jupyter notebook that contains the complete pipeline:
+All analyses are implemented in a single Jupyter notebook that contains the complete pipeline:
 
 Data loading and preprocessing
 
@@ -107,17 +122,14 @@ Classifier training and evaluation
 
 Explainability analyses (attention, integrated gradients, mutagenesis)
 
-Figures and visualizations
+#### Figures and Visualizations
 
-All figures shown in the technical report (attention profiles, integrated gradients, deletion scanning heatmaps) are generated programmatically within the notebook
+All figures shown in the technical report—including attention profiles, integrated gradients analyses, and deletion scanning heatmaps—are generated programmatically within the notebook. No pre-rendered images are stored separately; running the notebook reproduces all figures and results.
 
-No pre-rendered images are stored separately; running the notebook reproduces all results and plots
-
-Installation
+#### Installation
 pip install torch transformers captum scikit-learn pandas numpy matplotlib seaborn biopython obonet
 
-
-Tested on
+#### Tested On
 
 Python 3.11
 
@@ -127,19 +139,19 @@ transformers 4.35+
 
 macOS (Apple Silicon, MPS) and Linux (CUDA)
 
-Limitations
+### Limitations
 
-Single organism (human proteome only)
+Single organism analysis (human proteome only)
 
 Strong class imbalance limits rare function prediction
 
-Proteins >500 amino acids excluded
+Proteins longer than 500 amino acids excluded
 
 Single train/validation/test split
 
-No explicit structural information (AlphaFold not integrated)
+No explicit structural information (e.g. AlphaFold) incorporated
 
-Future Work
+### Future Work
 
 Hierarchical GO-aware loss functions
 
@@ -147,13 +159,13 @@ Few-shot learning for rare functions
 
 Cross-species generalization
 
-Integration with AlphaFold2 structures
+Integration with AlphaFold2 structural predictions
 
 Scaling to larger protein language models
 
 Variant effect prediction and protein engineering applications
 
-Citation
+## Citation
 
 If you use or build upon this work, please cite:
 
@@ -164,12 +176,12 @@ If you use or build upon this work, please cite:
   institution={Northeastern University}
 }
 
-License
+## License
 
-Code released under the MIT License.
+Code is released under the MIT License.
 Data usage is subject to Gene Ontology Consortium and UniProt terms.
 
-Contact
+## Contact
 
 Daniela Alejandra Gonzalez
 
@@ -179,4 +191,4 @@ Email: gonzalez.daniel@northeastern.edu
 
 LinkedIn: https://linkedin.com/in/danielaalejandra
 
-For questions, feedback, or collaboration, feel free to open an issue or reach out directly.
+For questions, feedback, or collaboration, feel free to open an issue or contact me directly.
