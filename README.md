@@ -112,13 +112,6 @@ Data is not distributed in this repository. All data loading, preprocessing, and
 ## Future Work
 
 - Apply the full XAI pipeline (attention, integrated gradients, in silico mutagenesis) to the fine-tuned model and compare how fine-tuning changes interpretability patterns
-- Extract fine-tuned embeddings for integration with GNN-based drug-drug interaction prediction
-- Analyze how fine-tuning reshapes the embedding space (t-SNE, dimension-level comparison)
-- Hierarchical GO-aware loss functions
-- Few-shot learning for rare functions
-- Cross-species generalization
-- Integration with AlphaFold2 structural predictions
-- Scaling to larger ESM-2 variants (650M, 3B)
 
 ## Installation
 
